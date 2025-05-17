@@ -1,0 +1,16 @@
+class Solution {
+    public int countSubstring(String s) {
+        // code here
+        Map<Character, Integer> freqMap = new HashMap<>();
+        int count = 0;
+        for (char ch : s.toCharArray()) {
+            count += freqMap.getOrDefault(ch, 0);
+
+            freqMap.put(ch, freqMap.getOrDefault(ch, 0) + 1);
+        }
+
+        count += s.length();
+
+        return count;
+    }
+}
