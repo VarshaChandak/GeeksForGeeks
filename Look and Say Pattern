@@ -1,0 +1,27 @@
+class Solution {
+    public String countAndSay(int n) {
+        StringBuilder str = new StringBuilder("1");
+        n--;
+        while (n-- > 0) {
+            int curr = str.length();
+            StringBuilder cur = new StringBuilder();
+            int i = 0;
+            while (i < curr) {
+                char c = str.charAt(i);
+                int count = 0;
+                int j = i;
+                while (j < curr && str.charAt(j) == c) {
+                    count++;
+                    j++;
+                }
+                cur.append(count);
+                cur.append(c);
+                i = j;  // Skip over counted group
+            }
+            str = cur;
+        }
+        return str.toString();
+    }
+
+   
+}
