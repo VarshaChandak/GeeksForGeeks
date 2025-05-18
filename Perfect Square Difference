@@ -1,0 +1,19 @@
+class Solution {
+    public static int countPairs(int[] arr) {
+        // code here
+        HashMap<Integer,Integer> freq = new HashMap<>();
+        int count =0;
+        for(int x : arr){
+            for(int i =1;i*i<=10000;i++){
+                int ps =i*i;
+                int can[]= {x-ps,x+ps};
+                for(int y: can){
+                    count+=freq.getOrDefault(y,0);
+                }
+                }
+                freq.put(x,freq.getOrDefault(x,0)+1);
+            }
+        return count;
+        
+    }
+}
