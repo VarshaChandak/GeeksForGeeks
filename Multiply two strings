@@ -1,0 +1,20 @@
+
+
+// User function Template for Java
+
+class Solution {
+    public String multiplyStrings(String s1, String s2) {
+    String str1 = s1.replaceFirst("^0+", "");
+        String str2 = s2.replaceFirst("^0+", "");
+        
+        if (str1.isEmpty()) str1 = "0";
+        if (str2.isEmpty()) str2 = "0";
+        
+        BigInteger num1 = new BigInteger(str1);
+        BigInteger num2 = new BigInteger(str2);
+        
+        BigInteger result = num1.multiply(num2);
+        return result.toString();
+      
+    }
+}
