@@ -1,0 +1,36 @@
+class Solution {
+    static boolean isBalanced(String s) {
+        if(s.length()==1) return false;
+        Stack<Character> st = new Stack<>();
+        for(int i=0; i<s.length(); i++)
+        {
+            Character c = s.charAt(i);
+            if(c.equals('(') || c.equals('{') || c.equals('[')){
+                st.push(c);
+            }
+            else if(st.isEmpty()){
+                return false;
+            }
+            else{
+                if(s.charAt(i)==')'){
+                    if(st.peek()!='('){
+                        return false;
+                    }
+                }
+                if(s.charAt(i)=='}'){
+                    if(st.peek()!='{'){
+                        return false;
+                    }
+                }
+                if(s.charAt(i)==']'){
+                    if(st.peek()!='['){
+                        return false;
+                    }
+                }
+                st.pop();
+            }
+        }
+        return st.isEmpty();
+    }
+}
+ 
