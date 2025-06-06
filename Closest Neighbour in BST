@@ -1,0 +1,36 @@
+/*
+class Node {
+    int data;
+    Node left, right;
+
+    Node(int x) {
+        data = x;
+        left = right = null;
+    }
+} */
+class Solution {
+    public int findMaxFork(Node root, int k) {
+        ArrayList<Integer> a=new ArrayList<>();
+        fun(root,a);
+        Collections.sort(a);
+        int n=a.size()-1;
+        while(n>=0){
+            if(a.get(n)<=k){
+                return a.get(n);
+                
+            }
+            n--;
+        }
+       return -1;
+       
+    }
+    public static void fun(Node r, ArrayList<Integer>d){
+        if(r==null){
+            return;
+        }
+        d.add(r.data);
+        fun(r.left,d);
+        fun(r.right,d);
+        
+    }
+}
