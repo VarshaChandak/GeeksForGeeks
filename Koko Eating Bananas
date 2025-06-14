@@ -1,0 +1,28 @@
+class Solution {
+    public int kokoEat(int[] arr, int k) {
+        // code here
+        int n = arr.length;
+        int l=1;
+        int r= -1;
+        for(int x : arr){
+            r = Math.max(r,x);
+        }
+        while(l<r){
+            int mid = (l+r)/2;
+            if(help(arr,mid,k)){
+                r=mid;
+            }
+            else{
+                l=mid+1;
+            }
+        }
+        return l;
+    }
+    public static boolean help(int[] arr ,int cap, int k){
+        int ans=0;
+        for(int x : arr){
+            ans+= (int)Math.ceil((double)x / cap);
+        }
+        return ans<=k;
+    }
+}
