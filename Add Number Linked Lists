@@ -1,0 +1,108 @@
+/* node for linked list
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int d) {
+        data = d;
+        next = null;
+    }
+}
+
+*/
+
+class Solution {
+    static Node addTwoLists(Node num1, Node num2) {
+        // code here
+        while(num1!=null){
+            if(num1.data>0){
+                break;
+            }
+            num1=num1.next;
+        }
+        
+        while(num2!=null){
+            if(num2.data>0){
+                break;
+            }
+            num2=num2.next;
+        }
+
+        //reverse list for sum
+
+        num1=reverse(num1);
+        num2=reverse(num2);
+        
+        Node head=new Node(0);
+        Node tail=head;
+        
+
+// add both list 
+
+        int sum=0;
+        while(num1!=null&&num2!=null){
+            sum=num1.data+num2.data+sum;
+            int rem=sum%10;
+            sum/=10;
+            Node temp=new Node(rem);
+            tail.next=temp;
+            tail=temp;
+            num1=num1.next;
+            num2=num2.next;
+        }
+
+// if remaining value in num1 
+
+
+        while(num1!=null){
+            sum=sum+num1.data;
+            int rem=sum%10;
+            sum/=10;
+            Node temp=new Node(rem);
+            tail.next=temp;
+            tail=temp;
+            num1=num1.next;
+        }
+
+// if reamining value is num2
+
+
+        while(num2!=null){
+            sum=sum+num2.data;
+            int rem=sum%10;
+            sum/=10;
+            Node temp=new Node(rem);
+            tail.next=temp;
+            tail=temp;
+            num2=num2.next;
+        }
+        if(sum!=0){
+            
+            Node temp=new Node(sum);
+            tail.next=temp;
+            tail=temp;
+        }
+        tail.next=null;
+        head=reverse(head.next);
+        return head;
+        
+    }
+
+// reverse method 
+
+
+    static Node reverse(Node h){
+        Node p=null;
+        Node n=null;
+        while(h!=null){
+            n=h.next;
+            h.next=p;
+            p=h;
+            h=n;
+        }
+        return p;
+
+
+    }
+}
