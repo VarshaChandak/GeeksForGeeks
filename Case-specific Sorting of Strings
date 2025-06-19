@@ -1,0 +1,28 @@
+class Solution {
+    public static String caseSort(String s) {
+        // code here
+        PriorityQueue<Character> cap = new PriorityQueue<>();
+        PriorityQueue<Character> small = new PriorityQueue<>();
+        char [] arr = s.toCharArray();
+        for(char ch : arr){
+            if(ch>='a' && ch<='z'){
+                small.add(ch);
+            }
+            else{
+                cap.add(ch);
+            }
+        }
+        StringBuilder str = new StringBuilder();
+        for(char ch : arr){
+            if(ch>='a' && ch<='z'){
+                str.append(small.peek());
+                small.remove();
+            }
+            else{
+                str.append(cap.peek());
+                cap.remove();
+            }
+        }
+        return str.toString();
+    }
+}
