@@ -1,0 +1,47 @@
+class Solution {
+    public int splitArray(int[] arr, int k) {
+        int low = getMax(arr);    
+        int high = getSum(arr);  
+
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+
+            if (isValid(arr, k, mid)) {
+                high = mid;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return low;  
+    }
+
+    private boolean isValid(int[] arr, int k, int maxAllowed) {
+        int count = 1;
+        int sum = 0;
+
+        for (int num : arr) {
+            if (sum + num > maxAllowed) {
+                count++;
+                sum = num;
+                if (count > k) return false;
+            } else {
+                sum += num;
+            }
+        }
+
+        return true;
+    }
+
+    private int getMax(int[] arr) {
+        int max = Integer.MIN_VALUE;
+        for (int num : arr) max = Math.max(max, num);
+        return max;
+    }
+
+    private int getSum(int[] arr) {
+        int sum = 0;
+        for (int num : arr) sum += num;
+        return sum;
+    }
+}
