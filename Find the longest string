@@ -1,0 +1,87 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+
+class GfG {
+
+    static final int base1 = 31;
+    static final int mod1 = 1000000007;
+    static final int base2 = 37;
+    static final int mod2 = 1000000009;
+
+    // function to compute pair hash
+    static ArrayList<Integer> computeHash(String s) {
+        long h1 = 0, h2 = 0;
+        long p1 = 1, p2 = 1;
+
+        for (char ch : s.toCharArray()) {
+            int val = ch - 'a' + 1;
+            h1 = (h1 + val * p1) % mod1;
+            h2 = (h2 + val * p2) % mod2;
+
+            p1 = (p1 * base1) % mod1;
+            p2 = (p2 * base2) % mod2;
+        }
+
+        ArrayList<Integer> hash = new ArrayList<>();
+        hash.add((int) h1);
+        hash.add((int) h2);
+        return hash;
+    }
+
+    // check if all prefixes of word exist in hash set
+    static boolean allPrefixExist(String word, Set<ArrayList<Integer>> hashSet) {
+        long h1 = 0, h2 = 0;
+        long p1 = 1, p2 = 1;
+
+        for (int i = 0; i < word.length(); i++) {
+            int val = word.charAt(i) - 'a' + 1;
+            h1 = (h1 + val * p1) % mod1;
+            h2 = (h2 + val * p2) % mod2;
+
+            ArrayList<Integer> prefixHash = new ArrayList<>();
+            prefixHash.add((int) h1);
+            prefixHash.add((int) h2);
+
+            if (!hashSet.contains(prefixHash)) {
+                return false;
+            }
+
+            p1 = (p1 * base1) % mod1;
+            p2 = (p2 * base2) % mod2;
+        }
+
+        return true;
+    }
+
+    // function to get the longest word whose all prefixes exist
+    static String longestString(String[] arr) {
+        Set<ArrayList<Integer>> hashSet = new HashSet<>();
+
+        for (String word : arr) {
+            hashSet.add(computeHash(word));
+        }
+
+        String result = "";
+
+        // check for each word
+        for (String word : arr) {
+            if (allPrefixExist(word, hashSet)) {
+                // update result if word is longer or 
+                // lexicographically smaller
+                if (word.length() > result.length() ||
+                        (word.length() == result.length() && word.compareTo(result) < 0)) {
+                    result = word;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        String[] arr = {"ab", "a", "abc", "abd"};
+        System.out.println(longestString(arr));
+    }
+}
