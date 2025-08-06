@@ -1,0 +1,30 @@
+class Solution {
+    public int maxRectSum(int[][] mat) {
+        int n = mat.length;
+        int m = mat[0].length;
+        int maxSum = Integer.MIN_VALUE;
+
+        for (int top = 0; top < n; top++) {
+            int[] temp = new int[m]; 
+            for (int bottom = top; bottom < n; bottom++) {
+                for (int col = 0; col < m; col++) {
+                    temp[col] += mat[bottom][col];
+                }
+
+                int currentMax = kadane(temp);
+                maxSum = Math.max(maxSum, currentMax);
+            }
+        }
+
+        return maxSum;
+    }
+
+    private int kadane(int[] arr) {
+        int max = arr[0], curr = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            curr = Math.max(arr[i], curr + arr[i]);
+            max = Math.max(max, curr);
+        }
+        return max;
+    }
+}
