@@ -1,0 +1,29 @@
+class Solution {
+    int getLongestPrefix(String s) {
+        int n = s.length();
+        if (n == 1) return -1;
+
+        // build LPS (prefix function)
+        int[] lps = new int[n];
+        int len = 0;
+        for (int i = 1; i < n; i++) {
+            while (len > 0 && s.charAt(i) != s.charAt(len)) {
+                len = lps[len - 1];
+            }
+            if (s.charAt(i) == s.charAt(len)) {
+                len++;
+                lps[i] = len;
+            } else {
+                lps[i] = 0;
+            }
+        }
+
+        int k = lps[n - 1]; // longest border
+        if (k == 0) return -1; 
+        while (lps[k - 1] != 0) {
+            k = lps[k - 1];
+        }
+
+        return n - k; // largest L = n - smallest_border
+    }
+}
