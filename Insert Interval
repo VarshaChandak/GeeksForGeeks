@@ -1,0 +1,31 @@
+class Solution {
+    public ArrayList<int[]> insertInterval(int[][] intervals, int[] newInterval) {
+       int p=newInterval[0];
+         int q=newInterval[1];
+         ArrayList<int[]>res=new ArrayList<>();
+         boolean isi=false;
+         for(int []r:intervals){
+             if(r[1]<p){
+                 res.add(r);
+                 
+             }
+             else if(r[0]>q){
+                 if(!isi){
+                     res.add(new int[]{p,q});
+                     isi=true;
+                 }
+                 res.add(r);
+             }
+             else{
+                 p=Math.min(p,r[0]);
+                  q=Math.max(q,r[1]);
+                 
+             }
+         }
+         if(!isi){
+             res.add(new int[]{p,q});
+         }
+         return res;
+        
+    }
+}
